@@ -10,7 +10,6 @@ public class HospitalParser implements Parser<Hospital>{
     public Hospital parse(String str) {
 
         String[] row = str.split("\",\"");
-        System.out.println(Arrays.toString(row));
 
         Hospital hospital = new Hospital();
 
@@ -21,7 +20,7 @@ public class HospitalParser implements Parser<Hospital>{
 
         int year = Integer.parseInt(row[5].substring(0,4));
         int month = Integer.parseInt(row[5].substring(4,6));
-        int day = Integer.parseInt(row[5].substring(6,7));
+        int day = Integer.parseInt(row[5].substring(6,8));
         hospital.setLicenseDate(LocalDateTime.of(year, month, day, 0, 0, 0));
 
         hospital.setBusinessStatus(Integer.parseInt(row[7].replace("\"","")));
@@ -35,7 +34,7 @@ public class HospitalParser implements Parser<Hospital>{
         hospital.setHealthcareProviderCount(Integer.parseInt(row[29].replace("\"","")));
         hospital.setPatientRoomCount(Integer.parseInt(row[30].replace("\"","")));
         hospital.setTotalNumberOfBeds(Integer.parseInt(row[31].replace("\"","")));
-        hospital.setTotalAreaSize(Integer.parseInt(row[32].replace("\"","")));
+        hospital.setTotalAreaSize(Float.parseFloat(row[32].replace("\"","")));
 
         return hospital;
     }
