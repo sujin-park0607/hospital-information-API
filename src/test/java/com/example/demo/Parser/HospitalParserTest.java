@@ -49,7 +49,9 @@ class HospitalParserTest{
         hospitalDao.add(hospital);
 
         Hospital selectHospital = hospitalDao.findById(1);
-        Assertions.assertEquals("효치과의원",selectHospital.getHospitalName());
+        Assertions.assertEquals(hospital.getId(),selectHospital.getId());
+        Assertions.assertEquals(hospital.getHospitalName(),selectHospital.getHospitalName());
+        Assertions.assertEquals(hospital.getFullAddress(),selectHospital.getFullAddress());
 
     }
 
