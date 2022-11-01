@@ -81,5 +81,8 @@ public class HospitalDao {
         return this.jdbcTemplate.queryForObject(sql, this.hospitalMapper , id);
     }
 
-
+    public List<Hospital> getAll(){
+        String sql = "SELECT * FROM hospital ORDER BY id";
+        return this.jdbcTemplate.query(sql, this.hospitalMapper);
+    }
 }
