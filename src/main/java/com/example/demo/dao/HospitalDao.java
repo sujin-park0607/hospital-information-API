@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 @Component
 public class HospitalDao {
@@ -41,19 +42,41 @@ public class HospitalDao {
     }
 
     public int deleteAll(){
-        return this.jdbcTemplate.update("delete from users");
+        return this.jdbcTemplate.update("delete from hopital");
     }
 
-//    public void findById(int id){
-//        String sql = "SELECT FROM hospital WHERE id = ?";
+    public int getCount(){
+        String sql = "SELECT COUNT(*) FROM hopital";
+        int count = this.jdbcTemplate.queryForObject(sql, Integer.class);
+        return count;
+    }
+//    public Hospital findById(int id){
+//        String sql = "SELECT * FROM hopital WHERE id = ?";
 //        RowMapper<Hospital> rowMapper = new RowMapper<Hospital>() {
 //            @Override
 //            public Hospital mapRow(ResultSet rs, int rowNum) throws SQLException {
 //                Hospital hospital = new Hospital();
 //                hospital.setId(rs.getInt("id"));
+//                hospital.setOpenServiceName(rs.getString("open_service_name"));
+//                hospital.setOpenLocalGovernmentCode(rs.getInt("open_local_government_code"));
+//                hospital.setManagementNumber(rs.getString("management_number"));
+//                hospital.setLicenseDate(LocalDateTime.parse(rs.getString("license_date")));
+//                hospital.setBusinessStatus(rs.getInt("business_status"));
+//                hospital.setBusinessStatusCode(rs.getInt("business_status_code"));
+//                hospital.setPhone(rs.getString("phone"));
+//                hospital.setFullAddress(rs.getString("full_address"));
+//                hospital.setRoadNameAddress(rs.getString("road_name_address"));
+//                hospital.setHospitalName(rs.getString("hospital_name"));
+//                hospital.setBusinessTypeName(rs.getString("business_type_name"));
+//                hospital.setHealthcareProviderCount(rs.getInt("healthcare_provider_count"));
+//                hospital.setPatientRoomCount(rs.getInt("patient_room_count"));
+//                hospital.setTotalNumberOfBeds(rs.getInt("total_number_of_beds"));
+//                hospital.setTotalAreaSize(rs.getInt("total_area_size"));
+//
+//                return hospital;
 //            }
-//        }
-//        this.jdbcTemplate.queryForObject(sql, new Object[]{id});
+//        };
+//        return this.jdbcTemplate.queryForObject(sql, rowMapper, id);
 //
 //    }
 }

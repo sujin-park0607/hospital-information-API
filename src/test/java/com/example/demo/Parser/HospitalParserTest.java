@@ -2,6 +2,7 @@ package com.example.demo.Parser;
 
 import com.example.demo.dao.HospitalDao;
 import com.example.demo.domain.Hospital;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,34 @@ class HospitalParserTest{
         HospitalParser hp = new HospitalParser();
         Hospital hospital = hp.parse(line1);
         hospitalDao.add(hospital);
+    }
 
+//    @Test
+//    @DisplayName("Hospital이 select가 잘 되는지")
+//    void findById(){
+//        HospitalParser hp = new HospitalParser();
+//        Hospital hospital = hp.parse(line1);
+//        hospitalDao.deleteAll();
+//        hospitalDao.add(hospital);
+//
+//        Hospital selectHospital = hospitalDao.findById(1);
+//        Assertions.assertEquals("효치과의원",selectHospital.getHospitalName());
+//
+//    }
+
+    @Test
+    @DisplayName("getCount가 잘 되는지")
+    void getCount(){
+        HospitalParser hp = new HospitalParser();
+        Hospital hospital = hp.parse(line1);
+
+        hospitalDao.deleteAll();
+        int count1 = hospitalDao.getCount();
+        Assertions.assertEquals(0,count1);
+
+        hospitalDao.add(hospital);
+        int count2 = hospitalDao.getCount();
+        Assertions.assertEquals(1,count2);
     }
 
     @Test
