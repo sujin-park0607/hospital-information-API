@@ -40,18 +40,18 @@ class HospitalParserTest{
         hospitalDao.add(hospital);
     }
 
-//    @Test
-//    @DisplayName("Hospital이 select가 잘 되는지")
-//    void findById(){
-//        HospitalParser hp = new HospitalParser();
-//        Hospital hospital = hp.parse(line1);
-//        hospitalDao.deleteAll();
-//        hospitalDao.add(hospital);
-//
-//        Hospital selectHospital = hospitalDao.findById(1);
-//        Assertions.assertEquals("효치과의원",selectHospital.getHospitalName());
-//
-//    }
+    @Test
+    @DisplayName("Hospital이 select가 잘 되는지")
+    void findById(){
+        HospitalParser hp = new HospitalParser();
+        Hospital hospital = hp.parse(line1);
+        hospitalDao.deleteAll();
+        hospitalDao.add(hospital);
+
+        Hospital selectHospital = hospitalDao.findById(1);
+        Assertions.assertEquals("효치과의원",selectHospital.getHospitalName());
+
+    }
 
     @Test
     @DisplayName("getCount가 잘 되는지")
