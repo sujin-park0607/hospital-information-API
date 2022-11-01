@@ -2,7 +2,11 @@ package com.example.demo.dao;
 
 import com.example.demo.domain.Hospital;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @Component
 public class HospitalDao {
@@ -34,6 +38,22 @@ public class HospitalDao {
                 hospital.getTotalNumberOfBeds(),
                 hospital.getTotalAreaSize()
                 );
-
     }
+
+    public int deleteAll(){
+        return this.jdbcTemplate.update("delete from users");
+    }
+
+//    public void findById(int id){
+//        String sql = "SELECT FROM hospital WHERE id = ?";
+//        RowMapper<Hospital> rowMapper = new RowMapper<Hospital>() {
+//            @Override
+//            public Hospital mapRow(ResultSet rs, int rowNum) throws SQLException {
+//                Hospital hospital = new Hospital();
+//                hospital.setId(rs.getInt("id"));
+//            }
+//        }
+//        this.jdbcTemplate.queryForObject(sql, new Object[]{id});
+//
+//    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.Parser;
 
+import com.example.demo.dao.HospitalDao;
 import com.example.demo.domain.Hospital;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,10 +23,23 @@ class HospitalParserTest{
     ApplicationContext context;
     ReadLineContext<Hospital> hospitalReadLineContext;
 
+    @Autowired
+    HospitalDao hospitalDao;
+
     @BeforeEach
     void setUp(){
         this.hospitalReadLineContext = context.getBean("hospitalReadLineContext", ReadLineContext.class);
     }
+
+    @Test
+    @DisplayName("Hospital이 insert가 잘 되는지")
+    void add(){
+        HospitalParser hp = new HospitalParser();
+        Hospital hospital = hp.parse(line1);
+        hospitalDao.add(hospital);
+
+    }
+
     @Test
     @DisplayName("10만건 이상 데이터가 파싱 되는지")
     void oneHudreadThousandDatas() throws IOException {
