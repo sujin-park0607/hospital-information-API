@@ -59,10 +59,12 @@ class HospitalParserTest{
         HospitalParser hp = new HospitalParser();
         Hospital hospital = hp.parse(line1);
 
+        //삭제되었을때 총 개수는 0개이여야함
         hospitalDao.deleteAll();
         int count1 = hospitalDao.getCount();
         Assertions.assertEquals(0,count1);
 
+        //하나가 추가되었을 대 총 개수는 1개이여야함
         hospitalDao.add(hospital);
         int count2 = hospitalDao.getCount();
         Assertions.assertEquals(1,count2);
