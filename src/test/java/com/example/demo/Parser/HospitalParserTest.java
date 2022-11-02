@@ -41,30 +41,29 @@ class HospitalParserTest{
         this.hospitalReadLineContext = context.getBean("hospitalReadLineContext", ReadLineContext.class);
     }
 
-    @Test
-    @DisplayName("Hospital이 insert가 잘 되는지")
-    void add(){
-        Hospital hospital = hp.parse(line1);
-        hospitalDao.add(hospital);
-    }
+//    @Test
+//    @DisplayName("Hospital이 insert가 잘 되는지")
+//    void add(){
+//        Hospital hospital = hp.parse(line1);
+//        hospitalDao.add(hospital);
+//    }
+//
+//    @Test
+//    @DisplayName("Hospital이 select가 잘 되는지")
+//    void findById(){
+//        Hospital hospital = hp.parse(line1);
+//        hospitalDao.add(hospital);
+//
+//        Hospital selectHospital = hospitalDao.findById(1);
+//        assertEquals(hospital.getId(),selectHospital.getId());
+//        assertEquals(hospital.getHospitalName(),selectHospital.getHospitalName());
+//        assertEquals(hospital.getFullAddress(),selectHospital.getFullAddress());
+//        assertEquals(hospital.getLicenseDate(), hospital.getLicenseDate());
+//    }
 
-    @Test
-    @DisplayName("Hospital이 select가 잘 되는지")
-    void findById(){
-        Hospital hospital = hp.parse(line1);
-        hospitalDao.add(hospital);
-
-        Hospital selectHospital = hospitalDao.findById(1);
-        assertEquals(hospital.getId(),selectHospital.getId());
-        assertEquals(hospital.getHospitalName(),selectHospital.getHospitalName());
-        assertEquals(hospital.getFullAddress(),selectHospital.getFullAddress());
-        assertEquals(hospital.getLicenseDate(), hospital.getLicenseDate());
-
-    }
-
-    @Test
-    @DisplayName("getCount가 잘 되는지")
-    void getCount(){
+//    @Test
+//    @DisplayName("getCount가 잘 되는지")
+//    void getCount(){
 //        Hospital hospital = hp.parse(line1);
 //
 //        //삭제되었을때 총 개수는 0개이여야함
@@ -76,11 +75,11 @@ class HospitalParserTest{
 //        hospitalDao.add(hospital);
 //        int count2 = hospitalDao.getCount();
 //        assertEquals(1,count2);
-    }
+//    }
 
-    @Test
-    @DisplayName("getAll로 모든 데이터가 불러와지는지 확인")
-    void getAll(){
+//    @Test
+//    @DisplayName("getAll로 모든 데이터가 불러와지는지 확인")
+//    void getAll(){
 //        hospitalDao.deleteAll();
 //        Hospital hospital1 = hp.parse(line1);
 //        Hospital hospital2 = hp.parse(line2);
@@ -92,38 +91,38 @@ class HospitalParserTest{
 //
 //        List<Hospital> all = hospitalDao.getAll();
 //        assertEquals(3, all.size());
-    }
+//    }
 
 
 
-    @Test
-    @DisplayName("csv 1줄을 hospital구현체롤 잘 만드는지")
-    void testconvert(){
-        Hospital hospital = hp.parse(line1);
+//    @Test
+//    @DisplayName("csv 1줄을 hospital구현체롤 잘 만드는지")
+//    void testconvert(){
+//        Hospital hospital = hp.parse(line1);
+//
+//        assertEquals(1, hospital.getId());
+//        assertEquals("의원", hospital.getOpenServiceName());
+//        assertEquals(3620000,hospital.getOpenLocalGovernmentCode());
+//        assertEquals("PHMA119993620020041100004",hospital.getManagementNumber());
+//        assertEquals(LocalDateTime.of(1999, 6, 12, 0, 0, 0), hospital.getLicenseDate()); //19990612
+//        assertEquals(1, hospital.getBusinessStatus());
+//        assertEquals(13, hospital.getBusinessStatusCode());
+//        assertEquals("062-515-2875", hospital.getPhone());
+//        assertEquals("광주광역시 북구 풍향동 565번지 4호 3층", hospital.getFullAddress());
+//        assertEquals("광주광역시 북구 동문대로 24, 3층 (풍향동)", hospital.getRoadNameAddress());
+//        assertEquals("효치과의원", hospital.getHospitalName());
+//        assertEquals("치과의원", hospital.getBusinessTypeName());
+//        assertEquals(1, hospital.getHealthcareProviderCount());
+//        assertEquals(0, hospital.getPatientRoomCount());
+//        assertEquals(0, hospital.getTotalNumberOfBeds());
+//        assertEquals(52.29f, hospital.getTotalAreaSize());
+//    }
 
-        assertEquals(1, hospital.getId());
-        assertEquals("의원", hospital.getOpenServiceName());
-        assertEquals(3620000,hospital.getOpenLocalGovernmentCode());
-        assertEquals("PHMA119993620020041100004",hospital.getManagementNumber());
-        assertEquals(LocalDateTime.of(1999, 6, 12, 0, 0, 0), hospital.getLicenseDate()); //19990612
-        assertEquals(1, hospital.getBusinessStatus());
-        assertEquals(13, hospital.getBusinessStatusCode());
-        assertEquals("062-515-2875", hospital.getPhone());
-        assertEquals("광주광역시 북구 풍향동 565번지 4호 3층", hospital.getFullAddress());
-        assertEquals("광주광역시 북구 동문대로 24, 3층 (풍향동)", hospital.getRoadNameAddress());
-        assertEquals("효치과의원", hospital.getHospitalName());
-        assertEquals("치과의원", hospital.getBusinessTypeName());
-        assertEquals(1, hospital.getHealthcareProviderCount());
-        assertEquals(0, hospital.getPatientRoomCount());
-        assertEquals(0, hospital.getTotalNumberOfBeds());
-        assertEquals(52.29f, hospital.getTotalAreaSize());
-    }
 
 
-
-    @Test
-    @DisplayName("대용량 데이터에도 잘 파싱이 되는지 Test")
-    void oneHundradThousandRowsTest() throws IOException {
+//    @Test
+//    @DisplayName("대용량 데이터에도 잘 파싱이 되는지 Test")
+//    void oneHundradThousandRowsTest() throws IOException {
 //        hospitalDao.deleteAll();
 //        String fileName = "D:\\backendSchool\\git\\fulldata_01_01_02_P_의원.csv";
 //        int dataCnt = this.hospitalService.insertLargeVolumeHospitalData(fileName);
@@ -131,5 +130,5 @@ class HospitalParserTest{
 //        assertTrue(dataCnt > 10000);
 //
 //        System.out.printf("파싱된 데이터의 수: %d", dataCnt);
-    }
+//    }
 }
