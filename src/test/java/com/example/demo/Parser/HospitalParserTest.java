@@ -2,6 +2,7 @@ package com.example.demo.Parser;
 
 import com.example.demo.dao.HospitalDao;
 import com.example.demo.domain.Hospital;
+import com.example.demo.service.HospitalService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,12 +10,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 @SpringBootTest
 class HospitalParserTest{
@@ -25,10 +28,13 @@ class HospitalParserTest{
     private HospitalParser hp = new HospitalParser();
     @Autowired
     ApplicationContext context;
+    @Autowired
     ReadLineContext<Hospital> hospitalReadLineContext;
 
     @Autowired
     HospitalDao hospitalDao;
+    @Autowired
+    HospitalService hospitalService;
 
     @BeforeEach
     void setUp(){
@@ -123,16 +129,18 @@ class HospitalParserTest{
         assertEquals(52.29f, hospital.getTotalAreaSize());
     }
 
+
+
     @Test
-    @DisplayName("전체 데이터넣기")
-    void 전체데이터삽입() throws IOException {
+    @DisplayName("대용량 데이터에도 잘 파싱이 되는지 Test")
+    void oneHundradThousandRowsTest() throws IOException {
         hospitalDao.deleteAll();
+        String fileName = "D:\\backendSchool\\git\\fulldata_01_01_02_P_의원.csv";
+        int dataCnt = this.hospitalService.insertLargeVolumeHospitalData(fileName);
+        assertTrue(dataCnt > 1000);
+        assertTrue(dataCnt > 10000);
 
-        String filename = "D:\\backendSchool\\git\\fulldata_01_01_02_P_의원.csv";
-        List<Hospital> hospitalList = hospitalReadLineContext.readByLine(filename);
-
-        for (Hospital hospital1 : hospitalList) {
-            hospitalDao.add(hospital1);
-        }
+        System.out.printf("파싱된 데이터의 수: %d", dataCnt);
     }
+
 }
