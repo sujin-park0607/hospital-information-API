@@ -22,6 +22,7 @@ class HospitalParserTest{
     String line2 = "\"2\",\"의원\",\"01_01_02_P\",\"3620000\",\"PHMA119993620020041100005\",\"19990707\",\"\",\"01\",\"영업/정상\",\"13\",\"영업중\",\"\",\"\",\"\",\"\",\"062-574-2802\",\"\",\"500867\",\"광주광역시 북구 일곡동 821번지 1호 2층\",\"광주광역시 북구 설죽로 518, 2층 (일곡동)\",\"61041\",\"일곡부부치과의원\",\"20170905183213\",\"I\",\"2018-08-31 23:59:59.0\",\"치과의원\",\"190646.777107\",\"189589.427851\",\"치과의원\",\"2\",\"0\",\"0\",\"200\",\"401\",\"치과\",\"\",\"\",\"\",\"0\",\"0\",\"\",\"\",\"0\",\"\",";
     String line3 = "\"3\",\"의원\",\"01_01_02_P\",\"3620000\",\"PHMA119993620020041100006\",\"19990713\",\"\",\"01\",\"영업/정상\",\"13\",\"영업중\",\"\",\"\",\"\",\"\",\"062-575-2875\",\"\",\"\",\"광주광역시 북구 일곡동 841번지 6호\",\"광주광역시 북구 설죽로 495, 3층 (일곡동)\",\"61040\",\"사랑이가득한치과의원\",\"20190730134859\",\"U\",\"2019-08-01 02:40:00.0\",\"치과의원\",\"190645.299575\",\"189353.47816\",\"치과의원\",\"1\",\"0\",\"0\",\"128\",\"401\",\"치과\",\"\",\"\",\"\",\"0\",\"0\",\"\",\"\",\"0\",\"\",";
 
+    private HospitalParser hp = new HospitalParser();
     @Autowired
     ApplicationContext context;
     ReadLineContext<Hospital> hospitalReadLineContext;
@@ -37,7 +38,6 @@ class HospitalParserTest{
     @Test
     @DisplayName("Hospital이 insert가 잘 되는지")
     void add(){
-        HospitalParser hp = new HospitalParser();
         Hospital hospital = hp.parse(line1);
         hospitalDao.add(hospital);
     }
@@ -45,41 +45,38 @@ class HospitalParserTest{
     @Test
     @DisplayName("Hospital이 select가 잘 되는지")
     void findById(){
-        HospitalParser hp = new HospitalParser();
         Hospital hospital = hp.parse(line1);
         hospitalDao.deleteAll();
         hospitalDao.add(hospital);
 
         Hospital selectHospital = hospitalDao.findById(1);
-        Assertions.assertEquals(hospital.getId(),selectHospital.getId());
-        Assertions.assertEquals(hospital.getHospitalName(),selectHospital.getHospitalName());
-        Assertions.assertEquals(hospital.getFullAddress(),selectHospital.getFullAddress());
+        assertEquals(hospital.getId(),selectHospital.getId());
+        assertEquals(hospital.getHospitalName(),selectHospital.getHospitalName());
+        assertEquals(hospital.getFullAddress(),selectHospital.getFullAddress());
+        assertEquals(hospital.getLicenseDate(), hospital.getLicenseDate());
 
     }
 
     @Test
     @DisplayName("getCount가 잘 되는지")
     void getCount(){
-        HospitalParser hp = new HospitalParser();
         Hospital hospital = hp.parse(line1);
 
         //삭제되었을때 총 개수는 0개이여야함
         hospitalDao.deleteAll();
         int count1 = hospitalDao.getCount();
-        Assertions.assertEquals(0,count1);
+        assertEquals(0,count1);
 
         //하나가 추가되었을 대 총 개수는 1개이여야함
         hospitalDao.add(hospital);
         int count2 = hospitalDao.getCount();
-        Assertions.assertEquals(1,count2);
+        assertEquals(1,count2);
     }
 
     @Test
     @DisplayName("getAll로 모든 데이터가 불러와지는지 확인")
     void getAll(){
         hospitalDao.deleteAll();
-
-        HospitalParser hp = new HospitalParser();
         Hospital hospital1 = hp.parse(line1);
         Hospital hospital2 = hp.parse(line2);
         Hospital hospital3 = hp.parse(line3);
@@ -106,7 +103,6 @@ class HospitalParserTest{
     @Test
     @DisplayName("csv 1줄을 hospital구현체롤 잘 만드는지")
     void testconvert(){
-        HospitalParser hp = new HospitalParser();
         Hospital hospital = hp.parse(line1);
 
         assertEquals(1, hospital.getId());
@@ -127,5 +123,16 @@ class HospitalParserTest{
         assertEquals(52.29f, hospital.getTotalAreaSize());
     }
 
+    @Test
+    @DisplayName("전체 데이터넣기")
+    void 전체데이터삽입() throws IOException {
+        hospitalDao.deleteAll();
 
+        String filename = "D:\\backendSchool\\git\\fulldata_01_01_02_P_의원.csv";
+        List<Hospital> hospitalList = hospitalReadLineContext.readByLine(filename);
+
+        for (Hospital hospital1 : hospitalList) {
+            hospitalDao.add(hospital1);
+        }
+    }
 }

@@ -7,8 +7,7 @@ import java.util.Arrays;
 
 public class HospitalParser implements Parser<Hospital>{
     @Override
-    public Hospital parse(String str) {
-
+    public Hospital parse(String str) throws NumberFormatException {
         String[] row = str.split("\",\"");
 
         Hospital hospital = new Hospital();
