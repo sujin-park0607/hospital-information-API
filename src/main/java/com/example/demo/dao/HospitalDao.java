@@ -45,7 +45,7 @@ public class HospitalDao {
     };
 
     public void add(Hospital hospital){
-        String sql = "INSERT INTO `likelion-db`.`hospital` (`id`, `open_service_name`, `open_local_government_code`, `management_number`, `license_date`, `business_status`, `business_status_code`, `phone`, `full_address`, `road_name_address`, `hospital_name`, `business_type_name`, `healthcare_provider_count`, `patient_room_count`, `total_number_of_beds`, `total_area_size`) " +
+        String sql = "INSERT INTO `likelion-db`.`nation_wide_hospitals` (`id`, `open_service_name`, `open_local_government_code`, `management_number`, `license_date`, `business_status`, `business_status_code`, `phone`, `full_address`, `road_name_address`, `hospital_name`, `business_type_name`, `healthcare_provider_count`, `patient_room_count`, `total_number_of_beds`, `total_area_size`) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         this.jdbcTemplate.update(sql,
                 hospital.getId(),
@@ -68,21 +68,21 @@ public class HospitalDao {
     }
 
     public int deleteAll(){
-        return this.jdbcTemplate.update("delete from hospital");
+        return this.jdbcTemplate.update("delete from nation_wide_hospitals");
     }
 
     public int getCount(){
-        String sql = "SELECT COUNT(*) FROM hospital";
+        String sql = "SELECT COUNT(*) FROM nation_wide_hospitals";
         return this.jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     public Hospital findById(int id){
-        String sql = "select * from hospital where id = ?";
+        String sql = "select * from nation_wide_hospitals where id = ?";
         return this.jdbcTemplate.queryForObject(sql, this.hospitalMapper , id);
     }
 
     public List<Hospital> getAll(){
-        String sql = "SELECT * FROM hospital ORDER BY id";
+        String sql = "SELECT * FROM nation_wide_hospitals ORDER BY id";
         return this.jdbcTemplate.query(sql, this.hospitalMapper);
     }
 }
